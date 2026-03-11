@@ -1,0 +1,9 @@
+
+# Kubernetes Namespace for openclew
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: openclew
+  labels:
+    app.kubernetes.io/name: openclew
+    app.kubernetes.io/managed-by: kubectl

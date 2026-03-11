@@ -1,0 +1,25 @@
+
+# Kustomization for openclew
+# Deploy with: kubectl apply -k kubernetes/
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: openclew
+
+resources:
+  - namespace.yaml
+  - configmap.yaml
+  - secret.yaml
+  - deployment.yaml
+  - service.yaml
+  - ingress.yaml
+
+commonLabels:
+  app.kubernetes.io/name: openclew
+  app.kubernetes.io/version: "0.1.0"
+  app.kubernetes.io/managed-by: kustomize
+
+# Image customization (override in overlays)
+images:
+  - name: openclew
+    newTag: latest

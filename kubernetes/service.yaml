@@ -1,0 +1,20 @@
+
+# Service for openclew Backend
+apiVersion: v1
+kind: Service
+metadata:
+  name: openclew-backend
+  namespace: openclew
+  labels:
+    app.kubernetes.io/name: openclew
+    app.kubernetes.io/component: backend
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8000
+      targetPort: 8000
+      protocol: TCP
+      name: http
+  selector:
+    app.kubernetes.io/name: openclew
+    app.kubernetes.io/component: backend

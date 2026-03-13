@@ -8,10 +8,8 @@ and raising domain exceptions for error handling.
 from app.services.user import UserService
 
 from app.services.session import SessionService
-from app.services.conversation import ConversationService
-
+ 
 __all__ = [
     "UserService",
     "SessionService",
-    "ConversationService",
-]
+ ]

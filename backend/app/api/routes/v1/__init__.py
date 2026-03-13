@@ -7,7 +7,6 @@ from app.api.routes.v1 import health
 from app.api.routes.v1 import auth, users
 from app.api.routes.v1 import oauth
 from app.api.routes.v1 import sessions
-from app.api.routes.v1 import conversations
 from app.api.routes.v1 import ws
 
 v1_router = APIRouter()
@@ -27,10 +26,8 @@ v1_router.include_router(oauth.router, prefix="/oauth", tags=["oauth"])
 # Session management routes
 v1_router.include_router(sessions.router, prefix="/sessions", tags=["sessions"])
 
- 
 
 # Conversation routes (AI chat persistence)
-v1_router.include_router(conversations.router, prefix="/conversations", tags=["conversations"])
 
 # WebSocket routes
 v1_router.include_router(ws.router, tags=["websocket"])

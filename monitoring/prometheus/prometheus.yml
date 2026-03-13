@@ -1,0 +1,24 @@
+# Prometheus Configuration for openclew
+# Docs: https://prometheus.io/docs/prometheus/latest/configuration/configuration/
+
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+scrape_configs:
+  # FastAPI application metrics
+  # Uses host.docker.internal for local dev (app running on host)
+  # Uses app:8000 when app is also in Docker (docker-compose up)
+  - job_name: "fastapi"
+    metrics_path: /metrics
+    static_configs:
+      - targets: ["host.docker.internal:8000"]
+        labels:
+          app: "openclew"
+          environment: "development"
+
+  # Prometheus self-monitoring
+  - job_name: "prometheus"
+    static_configs:
+      - targets: ["localhost:9090"]
+

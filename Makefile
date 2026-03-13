@@ -1,4 +1,4 @@
-.PHONY: install format lint test run clean help db-init
+.PHONY: install format lint test run clean help db-init monitoring-up monitoring-down monitoring-logs
 
 # === Setup ===
 install:
@@ -154,6 +154,23 @@ docker-redis:
 docker-redis-stop:
 	docker compose stop redis
 
+# === Monitoring (Prometheus + Grafana) ===
+monitoring-up:
+	docker compose up -d prometheus grafana
+	@echo ""
+	@echo "✅ Monitoring stack started!"
+	@echo "   Prometheus: http://localhost:9090"
+	@echo "   Grafana:    http://localhost:3001 (admin/admin)"
+	@echo ""
+	@echo "   Dashboard:  http://localhost:3001/d/openclew-fastapi"
+
+monitoring-down:
+	docker compose stop prometheus grafana
+	@echo "✅ Monitoring stack stopped"
+
+monitoring-logs:
+	docker compose logs -f prometheus grafana
+
 # === Cleanup ===
 clean:
 	find . -type d -name __pycache__ -exec rm -rf {} + 2>/dev/null || true
@@ -201,6 +218,11 @@ help:
 	@echo "  make docker-build         Build backend images"
 	@echo "  make docker-db            Start only PostgreSQL"
 	@echo "  make docker-redis         Start only Redis"
+	@echo ""
+	@echo "Monitoring (Prometheus + Grafana):"
+	@echo "  make monitoring-up        Start Prometheus + Grafana"
+	@echo "  make monitoring-down      Stop monitoring stack"
+	@echo "  make monitoring-logs      View monitoring logs"
 	@echo ""
 	@echo "Docker (Production with Traefik):"
 	@echo "  make docker-prod          Start production stack"

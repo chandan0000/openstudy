@@ -12,7 +12,6 @@ from starlette.requests import Request
 from app.core.config import settings
 from app.core.security import verify_password
 from app.db.base import Base
-from app.db.models.conversation import ToolCall
 from app.db.models.session import Session
 from app.db.models.user import User
 
@@ -43,8 +42,7 @@ MODEL_ICONS: dict[str, str] = {
     "Item": "fa-solid fa-box",
     "Conversation": "fa-solid fa-comments",
     "Message": "fa-solid fa-message",
-    "ToolCall": "fa-solid fa-wrench",
-}
+ }
 
 
 def discover_models(base: type[DeclarativeBase]) -> list[type]:
@@ -360,10 +358,7 @@ CUSTOM_MODEL_CONFIGS: dict[type, dict[str, Any]] = {
         "form_excluded_columns": [Session.refresh_token_hash],
         "can_create": False,  # Sessions are created via login
     },
-    ToolCall: {
-        "icon": "fa-solid fa-wrench",
-        "can_create": False,  # Tool calls are created by the agent
-    },
+ 
 }
 
 

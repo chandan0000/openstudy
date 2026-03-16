@@ -358,7 +358,7 @@ CUSTOM_MODEL_CONFIGS: dict[type, dict[str, Any]] = {
         "form_excluded_columns": [Session.refresh_token_hash],
         "can_create": False,  # Sessions are created via login
     },
- 
+
 }
 
 

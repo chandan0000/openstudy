@@ -39,7 +39,15 @@ class QuizResponse(BaseSchema, TimestampSchema):
     created_by: UUID
 
 
+# Forward import to avoid circular dependency
+from app.schemas.question import QuestionResponse
+
+
 class QuizWithQuestions(QuizResponse):
     """Schema for reading a quiz with questions."""
 
-    questions: list["QuestionResponse"] = []
+    questions: list[QuestionResponse] = []
+
+
+# Rebuild model to resolve forward references
+QuizWithQuestions.model_rebuild()

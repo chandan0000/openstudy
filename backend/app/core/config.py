@@ -140,6 +140,22 @@ class Settings(BaseSettings):
     S3_BUCKET: str = "openclew"
     S3_REGION: str = "us-east-1"
 
+    # === AI / OpenAI ===
+    OPENAI_API_KEY: str = ""
+    OPENAI_MODEL: str = "gpt-4o-mini"
+    OPENAI_MAX_TOKENS: int = 2000
+    AI_SUMMARIZATION_ENABLED: bool = True
+    AI_QA_ENABLED: bool = True
+    AI_QUIZ_GENERATION_ENABLED: bool = True
+
+    # === AWS S3 ===
+    AWS_ACCESS_KEY_ID: str = ""
+    AWS_SECRET_ACCESS_KEY: str = ""
+    AWS_REGION: str = "ap-south-1"
+    AWS_BUCKET_NAME: str = ""
+    AWS_S3_ENABLED: bool = False
+    LOCAL_UPLOAD_DIR: str = "/tmp/openstudy_uploads"
+
     # === CORS ===
     CORS_ORIGINS: list[str] = ["http://localhost:3000", "http://localhost:8080"]
     CORS_ALLOW_CREDENTIALS: bool = True

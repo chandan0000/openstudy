@@ -2,7 +2,7 @@
 
 from uuid import UUID
 
-from pydantic import Field
+from pydantic import ConfigDict, Field, field_validator
 
 from app.db.models.resource import ResourceType, SummaryStatus
 from app.schemas.base import BaseSchema, TimestampSchema
@@ -33,6 +33,20 @@ class ResourceResponse(BaseSchema, TimestampSchema):
     subject_id: UUID | None
     user_id: UUID
 
+    @field_validator("type", mode="before")
+    @classmethod
+    def convert_type(cls, v):
+        if isinstance(v, ResourceType):
+            return v.value
+        return str(v)
+
+    @field_validator("summary_status", mode="before")
+    @classmethod
+    def convert_summary_status(cls, v):
+        if isinstance(v, SummaryStatus):
+            return v.value
+        return str(v)
+
 
 class ResourceSummaryResponse(BaseSchema):
     """Schema for resource summary response."""
@@ -41,3 +55,10 @@ class ResourceSummaryResponse(BaseSchema):
     title: str
     summary: str | None
     summary_status: str
+
+    @field_validator("summary_status", mode="before")
+    @classmethod
+    def convert_summary_status(cls, v):
+        if isinstance(v, SummaryStatus):
+            return v.value
+        return str(v)

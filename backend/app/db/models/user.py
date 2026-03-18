@@ -12,6 +12,18 @@ from app.db.base import Base, TimestampMixin
 
 if TYPE_CHECKING:
     from app.db.models.session import Session
+    from app.db.models.room import Room
+    from app.db.models.room_member import RoomMember
+    from app.db.models.study_session import StudySession
+    from app.db.models.daily_goal import DailyGoal
+    from app.db.models.subject import Subject
+    from app.db.models.resource import Resource
+    from app.db.models.note import Note
+    from app.db.models.bookmark import Bookmark
+    from app.db.models.qa_session import QASession
+    from app.db.models.quiz import Quiz
+    from app.db.models.attempt import Attempt
+    from app.db.models.leaderboard import Leaderboard
 
 
 class UserRole(str, Enum):
@@ -44,6 +56,48 @@ class User(Base, TimestampMixin):
     # Relationship to sessions
     sessions: Mapped[list["Session"]] = relationship(
         "Session", back_populates="user", cascade="all, delete-orphan"
+    )
+
+    # Feature 3: Study Room relationships
+    owned_rooms: Mapped[list["Room"]] = relationship(
+        "Room", back_populates="owner", cascade="all, delete-orphan"
+    )
+    room_memberships: Mapped[list["RoomMember"]] = relationship(
+        "RoomMember", back_populates="user", cascade="all, delete-orphan"
+    )
+    study_sessions: Mapped[list["StudySession"]] = relationship(
+        "StudySession", back_populates="user", cascade="all, delete-orphan"
+    )
+    daily_goals: Mapped[list["DailyGoal"]] = relationship(
+        "DailyGoal", back_populates="user", cascade="all, delete-orphan"
+    )
+
+    # Feature 1: Resource Library relationships
+    subjects: Mapped[list["Subject"]] = relationship(
+        "Subject", back_populates="user", cascade="all, delete-orphan"
+    )
+    resources: Mapped[list["Resource"]] = relationship(
+        "Resource", back_populates="user", cascade="all, delete-orphan"
+    )
+    notes: Mapped[list["Note"]] = relationship(
+        "Note", back_populates="user", cascade="all, delete-orphan"
+    )
+    bookmarks: Mapped[list["Bookmark"]] = relationship(
+        "Bookmark", back_populates="user", cascade="all, delete-orphan"
+    )
+    qa_sessions: Mapped[list["QASession"]] = relationship(
+        "QASession", back_populates="user", cascade="all, delete-orphan"
+    )
+
+    # Feature 2: Quiz Engine relationships
+    quizzes_created: Mapped[list["Quiz"]] = relationship(
+        "Quiz", back_populates="creator", cascade="all, delete-orphan"
+    )
+    attempts: Mapped[list["Attempt"]] = relationship(
+        "Attempt", back_populates="user", cascade="all, delete-orphan"
+    )
+    leaderboard_entries: Mapped[list["Leaderboard"]] = relationship(
+        "Leaderboard", back_populates="user", cascade="all, delete-orphan"
     )
 
     @property

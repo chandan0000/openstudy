@@ -11,6 +11,24 @@ from app.db.base import Base
 
 # Import all models here to ensure they are registered with metadata
 from app.db.models.user import User  # noqa: F401
+from app.db.models.session import Session  # noqa: F401
+from app.db.models.room import Room  # noqa: F401
+from app.db.models.room_member import RoomMember  # noqa: F401
+from app.db.models.study_session import StudySession  # noqa: F401
+from app.db.models.daily_goal import DailyGoal  # noqa: F401
+
+# Feature 1: Resource Library models
+from app.db.models.subject import Subject  # noqa: F401
+from app.db.models.resource import Resource  # noqa: F401
+from app.db.models.note import Note  # noqa: F401
+from app.db.models.bookmark import Bookmark  # noqa: F401
+from app.db.models.qa_session import QASession  # noqa: F401
+
+# Feature 2: Quiz Engine models
+from app.db.models.quiz import Quiz  # noqa: F401
+from app.db.models.question import Question  # noqa: F401
+from app.db.models.attempt import Attempt  # noqa: F401
+from app.db.models.leaderboard import Leaderboard  # noqa: F401
 
 config = context.config
 

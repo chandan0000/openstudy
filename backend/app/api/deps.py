@@ -31,8 +31,20 @@ Redis = Annotated[RedisClient, Depends(get_redis)]
 
 from app.services.user import UserService
 from app.services.session import SessionService
- 
- 
+from app.services.subject import SubjectService
+from app.services.resource import ResourceService
+from app.services.note import NoteService
+from app.services.bookmark import BookmarkService
+from app.services.qa import QAService
+from app.services.quiz import QuizService
+from app.services.question import QuestionService
+from app.services.attempt import AttemptService
+from app.services.leaderboard import LeaderboardService
+from app.services.room import RoomService
+from app.services.timer import TimerService
+from app.services.study_session import SessionService as StudySessionService
+from app.services.goal import GoalService
+
 def get_user_service(db: DBSession) -> UserService:
     """Create UserService instance with database session."""
     return UserService(db)
@@ -43,8 +55,86 @@ def get_session_service(db: DBSession) -> SessionService:
     return SessionService(db)
 
 
+def get_subject_service(db: DBSession) -> SubjectService:
+    """Create SubjectService instance with database session."""
+    return SubjectService(db)
+
+
+def get_resource_service(db: DBSession, redis: Redis = None) -> ResourceService:
+    """Create ResourceService instance with database session."""
+    return ResourceService(db, redis)
+
+
+def get_note_service(db: DBSession) -> NoteService:
+    """Create NoteService instance with database session."""
+    return NoteService(db)
+
+
+def get_bookmark_service(db: DBSession) -> BookmarkService:
+    """Create BookmarkService instance with database session."""
+    return BookmarkService(db)
+
+
+def get_qa_service(db: DBSession) -> QAService:
+    """Create QAService instance with database session."""
+    return QAService(db)
+
+
+def get_quiz_service(db: DBSession) -> QuizService:
+    """Create QuizService instance with database session."""
+    return QuizService(db)
+
+
+def get_question_service(db: DBSession) -> QuestionService:
+    """Create QuestionService instance with database session."""
+    return QuestionService(db)
+
+
+def get_attempt_service(db: DBSession, redis: Redis = None) -> AttemptService:
+    """Create AttemptService instance with database session."""
+    return AttemptService(db, redis)
+
+
+def get_leaderboard_service(db: DBSession, redis: Redis = None) -> LeaderboardService:
+    """Create LeaderboardService instance with database session."""
+    return LeaderboardService(db, redis)
+
+
+def get_room_service(db: DBSession) -> RoomService:
+    """Create RoomService instance with database session."""
+    return RoomService(db)
+
+
+def get_timer_service(redis: Redis) -> TimerService:
+    """Create TimerService instance with Redis."""
+    return TimerService(redis)
+
+
+def get_study_session_service(db: DBSession) -> StudySessionService:
+    """Create StudySessionService instance with database session."""
+    return StudySessionService(db)
+
+
+def get_goal_service(db: DBSession) -> GoalService:
+    """Create GoalService instance with database session."""
+    return GoalService(db)
+
+
 UserSvc = Annotated[UserService, Depends(get_user_service)]
 SessionSvc = Annotated[SessionService, Depends(get_session_service)]
+SubjectSvc = Annotated[SubjectService, Depends(get_subject_service)]
+ResourceSvc = Annotated[ResourceService, Depends(get_resource_service)]
+NoteSvc = Annotated[NoteService, Depends(get_note_service)]
+BookmarkSvc = Annotated[BookmarkService, Depends(get_bookmark_service)]
+QASvc = Annotated[QAService, Depends(get_qa_service)]
+QuizSvc = Annotated[QuizService, Depends(get_quiz_service)]
+QuestionSvc = Annotated[QuestionService, Depends(get_question_service)]
+AttemptSvc = Annotated[AttemptService, Depends(get_attempt_service)]
+LeaderboardSvc = Annotated[LeaderboardService, Depends(get_leaderboard_service)]
+RoomSvc = Annotated[RoomService, Depends(get_room_service)]
+TimerSvc = Annotated[TimerService, Depends(get_timer_service)]
+StudySessionSvc = Annotated[StudySessionService, Depends(get_study_session_service)]
+GoalSvc = Annotated[GoalService, Depends(get_goal_service)]
 
 
 # === Authentication Dependencies ===
